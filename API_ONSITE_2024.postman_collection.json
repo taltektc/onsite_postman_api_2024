@@ -1,0 +1,421 @@
+{
+	"info": {
+		"_postman_id": "92244ecc-5589-43e7-9e17-8884d5a529b4",
+		"name": "API_ONSITE_2024",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14309444"
+	},
+	"item": [
+		{
+			"name": "List of the Students",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "access_token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAyODc3fQ.dtvBwya6mcDecEucm3xLZ8sQGHuCeXGHUzWhdDqSYn4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"TTC0524\",\n  \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/students",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let firstName = pm.variables.replaceIn(\"{{$randomFirstName}}\")",
+							"let firstNameLowerCase = firstName.toLowerCase();",
+							"console.log(firstName)",
+							"console.log(firstNameLowerCase)",
+							"",
+							"",
+							"let randomNumber = _.random(10000,99999)",
+							"",
+							"console.log(randomNumber)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"q\",\n  \"lastName\": \"Q\",\n  \"email\": \"sachin.onsite11@gmail.com\",\n  \"password\": \"12344\",\n  \"confirmPassword\": \"12344\",\n  \"dob\": {\n    \"year\": 2000,\n    \"month\": 2,\n    \"day\": 31\n  },\n  \"gender\": \"male\",\n  \"agree\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/signup/asdfdasf",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"signup",
+						"asdfdasf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "access_token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAyODc3fQ.dtvBwya6mcDecEucm3xLZ8sQGHuCeXGHUzWhdDqSYn4",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"TTC0524\",\n  \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/students/TTC0525",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"students",
+						"TTC0525"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"TTC0524\",\n  \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/login",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Info",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "access_token",
+						"value": "eyJ0eXiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAxODQ2fQ.KFghjmGvFxcspkCNpuyjiUYsaLA-xul74wBb_ftd3OE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Updated\",\n  \"lastName\": \"SachinLNameGotUpdated\",\n  \"email\": \"sachin.onsite2@gmail.com\",\n  \"dob\": {\n    \"year\": 1988,\n    \"month\": 1,\n    \"day\": 10\n  },\n  \"gender\": \"male\",\n  \"agree\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/student/update/TTC0524",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"student",
+						"update",
+						"TTC0524"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Password",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "access_token",
+						"value": "eyJ0eXiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAxODQ2fQ.KFghjmGvFxcspkCNpuyjiUYsaLA-xul74wBb_ftd3OE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"password\": \"updatedPass1\",\n  \"confirmPassword\": \"updatedPass1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/updatePassword/TTC0524",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"updatePassword",
+						"TTC0524"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login after password change",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"TTC0524\",\n  \"password\": \"updatedPass1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/login",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete student",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "api_token",
+						"value": "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "access_token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAzNTIzfQ.FSR6j0LfyrWrReN66vrMhhOW44PzOmQlgeqAkIwCfns",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qa.taltektc.com/student/delete/TTC0524",
+					"protocol": "https",
+					"host": [
+						"qa",
+						"taltektc",
+						"com"
+					],
+					"path": [
+						"student",
+						"delete",
+						"TTC0524"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "randomNum",
+			"value": ""
+		}
+	]
+}
