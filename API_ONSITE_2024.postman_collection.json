@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "92244ecc-5589-43e7-9e17-8884d5a529b4",
+		"_postman_id": "3aab84c1-4364-49f4-8952-65d3a9e20157",
 		"name": "API_ONSITE_2024",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "14309444"
@@ -26,11 +26,6 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
-					},
-					{
-						"key": "access_token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAyODc3fQ.dtvBwya6mcDecEucm3xLZ8sQGHuCeXGHUzWhdDqSYn4",
-						"type": "text"
 					}
 				],
 				"body": {
@@ -43,12 +38,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/students",
-					"protocol": "https",
+					"raw": "{{baseURL}}/students",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"students"
@@ -64,26 +56,57 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"// store data from response body",
+							"pm.environment.set(\"studentId\", jsonData.data.id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Verify success message\", function () {",
+							"    pm.expect(jsonData.message).to.be.eql(\"User created successfully\");",
+							"});",
+							"",
+							"pm.test(\"Verify agree value should be true\", function () {",
+							"    pm.expect(jsonData.data.agree).to.be.eql(true);",
+							"});",
+							"",
+							"// Write test to verify names ",
+							"",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				},
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"let firstName = pm.variables.replaceIn(\"{{$randomFirstName}}\")",
-							"let firstNameLowerCase = firstName.toLowerCase();",
-							"console.log(firstName)",
-							"console.log(firstNameLowerCase)",
+							"// names",
+							"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');",
+							"pm.environment.set(\"studentFirstName\", firstName.replace(/[^a-zA-Z0-9 ]/g, ''));",
+							"",
+							"var lastName = pm.variables.replaceIn('{{$randomLastName}}')",
+							"pm.environment.set(\"studentLastName\", lastName.replace(/[^a-zA-Z0-9 ]/g, ''));",
+							"",
+							"// email",
+							"var emailDomain = \"@taltektc.com\"",
+							"var randomNumber = Math.floor(Math.random() * 90000) + 10000;",
+							"var randomEmail = firstName.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '')+\".\"+lastName.toLowerCase().replace(/[^a-zA-Z0-9 ]/g, '')+randomNumber+emailDomain;",
+							"pm.environment.set(\"studentEmail\", randomEmail);",
+							"",
+							"// DOB (MM/DD/YYYY)",
 							"",
 							"",
-							"let randomNumber = _.random(10000,99999)",
+							"// Gender",
 							"",
-							"console.log(randomNumber)"
+							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -106,7 +129,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"firstName\": \"q\",\n  \"lastName\": \"Q\",\n  \"email\": \"sachin.onsite11@gmail.com\",\n  \"password\": \"12344\",\n  \"confirmPassword\": \"12344\",\n  \"dob\": {\n    \"year\": 2000,\n    \"month\": 2,\n    \"day\": 31\n  },\n  \"gender\": \"male\",\n  \"agree\": true\n}",
+					"raw": "{\n  \"firstName\": \"{{studentFirstName}}\",\n  \"lastName\": \"{{studentLastName}}\",\n  \"email\": \"{{studentEmail}}\",\n  \"password\": \"123456$\",\n  \"confirmPassword\": \"123456$\",\n  \"dob\": {\n    \"year\": 2000,\n    \"month\": 2,\n    \"day\": 18\n  },\n  \"gender\": \"male\",\n  \"agree\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -114,16 +137,12 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/signup/asdfdasf",
-					"protocol": "https",
+					"raw": "{{baseURL}}/signup",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
-						"signup",
-						"asdfdasf"
+						"signup"
 					]
 				}
 			},
@@ -131,6 +150,33 @@
 		},
 		{
 			"name": "Get student info",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -149,12 +195,6 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
-					},
-					{
-						"key": "access_token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAyODc3fQ.dtvBwya6mcDecEucm3xLZ8sQGHuCeXGHUzWhdDqSYn4",
-						"type": "text",
-						"disabled": true
 					}
 				],
 				"body": {
@@ -167,16 +207,13 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/students/TTC0525",
-					"protocol": "https",
+					"raw": "{{baseURL}}/students/{{studentId}}",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"students",
-						"TTC0525"
+						"{{studentId}}"
 					]
 				}
 			},
@@ -203,7 +240,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": \"TTC0524\",\n  \"password\": \"123456\"\n}",
+					"raw": "{\n  \"id\": \"{{studentEmail}}\",\n  \"password\": \"123456$\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -211,12 +248,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/login",
-					"protocol": "https",
+					"raw": "{{baseURL}}/login",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"login"
@@ -228,6 +262,16 @@
 		{
 			"name": "Update Info",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzExMzA1NzYwfQ.g3Ep5rCnBeteGhecUw67sOnQUnTIArEz6jUom5vJAKM",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [
 					{
@@ -239,16 +283,11 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
-					},
-					{
-						"key": "access_token",
-						"value": "eyJ0eXiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAxODQ2fQ.KFghjmGvFxcspkCNpuyjiUYsaLA-xul74wBb_ftd3OE",
-						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"firstName\": \"Updated\",\n  \"lastName\": \"SachinLNameGotUpdated\",\n  \"email\": \"sachin.onsite2@gmail.com\",\n  \"dob\": {\n    \"year\": 1988,\n    \"month\": 1,\n    \"day\": 10\n  },\n  \"gender\": \"male\",\n  \"agree\": true\n}",
+					"raw": "{\n  \"firstName\": \"Updated\",\n  \"lastName\": \"SachinLNameGotUpdated\",\n  \"email\": \"sachin.onsite_update22@gmail.com\",\n  \"dob\": {\n    \"year\": 1988,\n    \"month\": 1,\n    \"day\": 10\n  },\n  \"gender\": \"male\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -256,17 +295,14 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/student/update/TTC0524",
-					"protocol": "https",
+					"raw": "{{baseURL}}/student/update/TTC0560",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"student",
 						"update",
-						"TTC0524"
+						"TTC0560"
 					]
 				}
 			},
@@ -275,7 +311,17 @@
 		{
 			"name": "Update Password",
 			"request": {
-				"method": "PUT",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzExMzA2MTQ4fQ.dAeGWJmDC4O-7THHU2le76vNnMqJkx9lLiruM8CeJ4M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
 				"header": [
 					{
 						"key": "api_token",
@@ -303,16 +349,13 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/updatePassword/TTC0524",
-					"protocol": "https",
+					"raw": "{{baseURL}}/updatePassword/TTC0561",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"updatePassword",
-						"TTC0524"
+						"TTC0561"
 					]
 				}
 			},
@@ -339,7 +382,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": \"TTC0524\",\n  \"password\": \"updatedPass1\"\n}",
+					"raw": "{\n  \"id\": \"TTC0561\",\n  \"password\": \"updatedPass1\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -347,12 +390,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/login",
-					"protocol": "https",
+					"raw": "{{baseURL}}/login",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"login"
@@ -365,7 +405,14 @@
 			"name": "Delete student",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzExMzA2MTk5fQ.qoEi8V9vbXxWmsWCqp9dZg8418YiW6lC9i5bDViaT1E",
+							"type": "string"
+						}
+					]
 				},
 				"method": "DELETE",
 				"header": [
@@ -377,11 +424,6 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"type": "text"
-					},
-					{
-						"key": "access_token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzEwNzAzNTIzfQ.FSR6j0LfyrWrReN66vrMhhOW44PzOmQlgeqAkIwCfns",
 						"type": "text"
 					}
 				],
@@ -395,17 +437,14 @@
 					}
 				},
 				"url": {
-					"raw": "https://qa.taltektc.com/student/delete/TTC0524",
-					"protocol": "https",
+					"raw": "{{baseURL}}/student/delete/TTC0561",
 					"host": [
-						"qa",
-						"taltektc",
-						"com"
+						"{{baseURL}}"
 					],
 					"path": [
 						"student",
 						"delete",
-						"TTC0524"
+						"TTC0561"
 					]
 				}
 			},
