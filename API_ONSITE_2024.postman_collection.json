@@ -201,7 +201,11 @@
 									"pm.test(\"Student data should not be empty\", function () {",
 									"     pm.expect(jsonData.data).to.be.an('array').that.is.not.empty",
 									"});",
-									""
+									"",
+									"pm.test(\"Homework: Verify student information\", function () {",
+									"     // Find the expected student id from the data array",
+									"     // Once studentId is found, verify first, last name, email, gender and agree should be always 1",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
